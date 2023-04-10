@@ -1,16 +1,25 @@
+import { useSelector } from "react-redux";
+import { selectIsLoading, selectError } from "redux/selectors";
+
+import { ContactForm } from "./Phonebook/ContactForm";
+import { ContactList } from "./ListContacts/ContactList";
+import { Section } from "./Section/Section";
+import { Filter } from "./Filter/Filter";
+
+
+
 export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
-  );
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+
+  return <> 
+  <Section mainTitle={'Phonebook'}>
+  <ContactForm />
+  </Section>
+  <Section title={'Contacts'}>
+  {isLoading && !error && <b>Request in progress...</b>}
+  <Filter/>
+  <ContactList />
+  </Section>
+  </>
 };
